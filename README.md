@@ -68,13 +68,19 @@ look-ups — maximum fidelity, no network needed.
 ### Claude Chat (claude.ai, in the browser)
 
 ```bash
-make chat-bundle     # produces dist/qlik-talend-chat.zip (~600 KB)
+make chat-bundle     # produces dist/qlik-talend-chat.zip (~300 KB, 37 files)
 ```
 
-The bundle contains **no** raw files (Chat has no filesystem access).
-Instead, every citations table points directly at the canonical URLs on
-`help.qlik.com/talend`. When Claude needs the exact wording it can fetch the
-URL via WebFetch.
+The bundle contains **no** raw files (Chat has no filesystem access). It also
+**consolidates topics per guide+version into one file each** (28 guide files
+instead of 441 topic files), to stay under claude.ai's 200-file Skill-upload
+limit. Each consolidated guide has a TOC at the top and anchored sections
+(`<a id="topic-<id>">`) per topic, so Claude can `Read` the file with
+`offset`/`limit` to jump to a specific topic.
+
+Every Citations table still points at the canonical URLs on
+`help.qlik.com/talend` — when exact wording is needed, Claude WebFetches the
+URL.
 
 Upload to claude.ai:
 - **Settings → Skills**: upload the ZIP (Pro/Team/Enterprise with the Skills
