@@ -1,5 +1,7 @@
 # claude-qlik-docs
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Crawler + Claude-Skill-Builder für die [Qlik Talend Dokumentation](https://help.qlik.com/talend/).
 Erzeugt einen lokalen, versionierten Wissens-Skill `qlik-talend`, den Claude Code
 und Claude Chat token-effizient als Antwort-Kontext nutzen können — ohne die
@@ -95,3 +97,10 @@ Neue Talend-Produkte oder andere Qlik-Doku (Sense, QlikView):
 - Components-Referenz als separater Sub-Skill
 - 7.x-Support parallel (zweiter Versions-Slot)
 - Generalisierung auf Qlik Sense / QlikView / Replicate / Compose
+
+## Lizenz
+
+[MIT](LICENSE) für den Code in diesem Repo. Beachte den Hinweis in der
+LICENSE-Datei zum gecrawlten Qlik-Content: dieser ist nicht Bestandteil des
+Repos und unterliegt Qliks eigenen Nutzungsbedingungen. Das Projekt ist nicht
+mit Qlik affiliiert oder von Qlik unterstützt.
