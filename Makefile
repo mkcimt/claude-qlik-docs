@@ -1,4 +1,4 @@
-.PHONY: help crawl cluster topics index validate build clean fresh \
+.PHONY: help crawl cluster topics index validate build clean fresh test \
         cc-install cc-uninstall chat-bundle
 
 SKILL_NAME := qlik-talend
@@ -24,6 +24,7 @@ help:
 	@echo "Convenience:"
 	@echo "  make fresh         — wipe outputs, recrawl, rebuild, cc-install"
 	@echo "  make clean         — wipe build artefacts (keeps raw mirror)"
+	@echo "  make test          — run unit tests (no network, ~1s)"
 
 crawl:
 	uv run python -m crawler.run --delay 0.5
@@ -42,6 +43,9 @@ validate:
 	uv run python -m distill.validate_citations
 
 build: cluster topics index validate
+
+test:
+	uv run pytest -v
 
 cc-install:
 	@mkdir -p $(HOME)/.claude/skills

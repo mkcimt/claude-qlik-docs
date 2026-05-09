@@ -82,6 +82,18 @@ Upload to claude.ai:
 - **Project Knowledge**: drop the contents of `dist/qlik-talend-chat/` into a
   Project.
 
+## Tests
+
+```bash
+make test            # 43 unit tests, no network, ~1 s
+```
+
+Tests cover the pure transforms (URL parsing, HTML extraction, topic
+clustering, citation validation, chat-bundle transformer). Heuristic
+boundaries (e.g. the title-cleanup fix, version-constraint regex) have
+regression tests so tuning them later doesn't silently break existing
+behaviour.
+
 ## Re-crawl
 
 ```bash
