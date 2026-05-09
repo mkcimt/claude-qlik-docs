@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Crawled / derived Qlik content — NOT redistributable.
+# Keep crawler + skill scaffolding source-controlled, but artefacts must be
+# regenerated locally per user via `make fresh`.
+skill-output/qlik-talend/raw/
+skill-output/qlik-talend/topics/
+skill-output/qlik-talend/index/
+skill-output/qlik-talend/index.md
+skill-output/qlik-talend/meta/
+topic_map.yaml
+
+# Spike outputs
+spike/out/
+
+# Local Claude config
+.claude/
