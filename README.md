@@ -2,147 +2,146 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Crawler + Claude-Skill-Builder für die [Qlik Talend Dokumentation](https://help.qlik.com/talend/).
-Erzeugt einen lokalen, versionierten Wissens-Skill `qlik-talend`, den Claude Code
-und Claude Chat token-effizient als Antwort-Kontext nutzen können — ohne die
-komplette Doku im Prompt mitzuschleppen.
+Crawler + Claude-skill builder for the [Qlik Talend documentation](https://help.qlik.com/talend/).
+Produces a local, versioned knowledge skill `qlik-talend` that Claude Code and
+Claude Chat can use as token-efficient answer context — without dragging the
+full documentation into every prompt.
 
-## Was es kann
+## What it does
 
-- **Crawlt** alle relevanten Talend-Sub-Sitemaps (Studio 8.x, TMC, Remote Engine
-  Linux/Windows, Dynamic Engine, Installation, SDLC/CI-CD, Cloud Platform) per
-  `httpx + BeautifulSoup + markdownify`. Respektiert `robots.txt`, throttled,
-  retried, hash-cached.
-- **Cluster + Distill**: gruppiert ~3000 Roh-Pages in ~440 Topics, baut pro
-  Topic eine destillierte Markdown-Datei mit TL;DR, Procedure-Outline,
-  Notes/Restrictions und einer Citations-Tabelle, die jeden Anchor exakt auf
-  Roh-Datei + Source-URL abbildet (keine Halluzinationen, mechanisch generiert).
-- **Packagiert** als Claude Skill — `SKILL.md` triggert auf Talend-Fragen,
-  navigiert progressiv über Index → Sub-Index → Topic → Roh-Page.
+- **Crawls** all relevant Talend sub-sitemaps (Studio 8.x, TMC, Remote Engine
+  Linux/Windows, Dynamic Engine, installation, SDLC/CI-CD, Cloud platform)
+  using `httpx + BeautifulSoup + markdownify`. Honours `robots.txt`, throttles,
+  retries, hash-caches.
+- **Clusters and distils**: groups ~3,000 raw pages into ~440 topics; produces
+  one distilled markdown file per topic with TL;DR, procedure outline, notes
+  and restrictions, plus a citations table that maps each anchor exactly to
+  the source raw file and canonical URL (no hallucinations — generated
+  mechanically).
+- **Packages** as a Claude skill — `SKILL.md` triggers on Talend questions and
+  navigates progressively from index → sub-index → topic → raw page.
 
-Token-Effizienz pro Frage: typischerweise 25–40 KB Kontext statt 14 MB Mirror.
+Token cost per question: typically 25–40 KB of context instead of the 14 MB
+full mirror.
 
-## Lizenz / Redistribution
+## License / redistribution
 
-Der gecrawlte Qlik-Content ist **nicht** in diesem Repo enthalten und bewusst
-in `.gitignore`. Dieses Repo enthält nur **Code + Skill-Scaffolding** (z. B.
-`SKILL.md`). Jeder Nutzer crawlt selbst lokal — vergleichbar mit
-`pip install`-Logik, nicht mit einem Content-Mirror.
+The crawled Qlik content is **not** included in this repo and is intentionally
+in `.gitignore`. The repo only ships **code and skill scaffolding** (e.g.
+`SKILL.md`). Each user crawls locally — comparable to `pip install`-style
+installation, not a content mirror.
 
 ## Setup
 
 ```bash
-# Voraussetzungen: macOS, Python 3.9+, uv (https://docs.astral.sh/uv/), make
+# Prerequisites: macOS, Python 3.9+, uv (https://docs.astral.sh/uv/), make
 brew install uv
 git clone https://github.com/ElRakiti/claude-qlik-docs.git
 cd claude-qlik-docs
-uv sync                    # legt .venv an, installiert deps
-make fresh                 # crawlt (~30 min) + baut Topics + cc-install
+uv sync                    # creates .venv, installs deps
+make fresh                 # crawls (~30 min) + builds topics + cc-install
 ```
 
-`make fresh` führt aus:
-1. `make crawl`       — Crawl von help.qlik.com (~30 min, ~3000 Seiten)
-2. `make build`       — Cluster + Topic-Build + Index + Validate
-3. `make cc-install`  — Symlink nach `~/.claude/skills/qlik-talend`
+`make fresh` runs:
+1. `make crawl`       — crawl help.qlik.com (~30 min, ~3,000 pages)
+2. `make build`       — cluster + topic-build + index + validate
+3. `make cc-install`  — symlink to `~/.claude/skills/qlik-talend`
 
-Danach in einer **neuen** Claude-Code-Session: einfach Talend-Fragen stellen.
-Der Skill triggert automatisch über die Description in `SKILL.md`.
+After that, in a **new** Claude Code session, just ask Talend questions. The
+skill triggers automatically via the description in `SKILL.md`.
 
-## Distribution-Targets
+## Distribution targets
 
-Zwei Oberflächen, zwei Targets — getrennt benannt damit klar ist, was wohin
-geht:
+Two surfaces, two targets — explicitly named so it is obvious which one is
+for what:
 
-### Claude Code (CLI, lokal auf deinem Rechner)
+### Claude Code (CLI, on your local machine)
 
 ```bash
-make cc-install      # symlinkt skill-output/qlik-talend → ~/.claude/skills/qlik-talend
-make cc-uninstall    # entfernt den Symlink
+make cc-install      # symlinks skill-output/qlik-talend → ~/.claude/skills/qlik-talend
+make cc-uninstall    # removes the symlink
 ```
 
-Der Skill nutzt direkt die lokalen `raw/`-Dateien als Quelle bei
-Detail-Lookups — maximale Treffergenauigkeit, kein Netz nötig.
+The skill uses the local `raw/` files as the source of truth for detailed
+look-ups — maximum fidelity, no network needed.
 
-### Claude Chat (claude.ai, im Browser)
+### Claude Chat (claude.ai, in the browser)
 
 ```bash
-make chat-bundle     # erzeugt dist/qlik-talend-chat.zip (~600 KB)
+make chat-bundle     # produces dist/qlik-talend-chat.zip (~600 KB)
 ```
 
-Der Bundle enthält **keine** Roh-Dateien (Chat hat keinen Filesystem-Zugriff).
-Stattdessen verweisen die Citations-Tabellen direkt auf die kanonischen URLs
-auf `help.qlik.com/talend`. Bei Detail-Bedarf kann Claude die URL via WebFetch
-ziehen.
+The bundle contains **no** raw files (Chat has no filesystem access).
+Instead, every citations table points directly at the canonical URLs on
+`help.qlik.com/talend`. When Claude needs the exact wording it can fetch the
+URL via WebFetch.
 
-Upload in claude.ai:
-- **Settings → Skills**: ZIP hochladen (Pro/Team/Enterprise mit Skills-Feature).
-- **Project Knowledge**: Inhalt von `dist/qlik-talend-chat/` in ein Project
-  droppen.
+Upload to claude.ai:
+- **Settings → Skills**: upload the ZIP (Pro/Team/Enterprise with the Skills
+  feature).
+- **Project Knowledge**: drop the contents of `dist/qlik-talend-chat/` into a
+  Project.
 
-## Re-Crawl
+## Re-crawl
 
 ```bash
-make crawl           # idempotent, ETag/Hash-Cache schont Bandbreite
-make build           # Topics + Index neu generieren
-make chat-bundle     # optional: Chat-ZIP neu bauen
+make crawl           # idempotent, ETag/hash cache saves bandwidth
+make build           # rebuild topics + index
+make chat-bundle     # optional: rebuild the chat ZIP
 ```
 
 ## Scope (MS1)
 
-- Talend Studio 8.0 (User Guide + Begleitdokus)
+- Talend Studio 8.0 (User Guide + companion docs)
 - Talend Management Console (Cloud)
 - Remote Engine Linux + Windows (Cloud) + Gen2 + Dynamic Engine
-- Installation Guide Linux/Windows (Cloud + 8.0), Hybrid, Migration/Upgrade
-- SDLC / CI-CD Best Practices (8.0 + Cloud)
-- Talend Cloud Getting Started + Glossary
+- Installation Guide Linux/Windows (Cloud + 8.0), Hybrid, migration / upgrade
+- SDLC / CI-CD best practices (8.0 + Cloud)
+- Talend Cloud getting started + glossary
 
-**Nicht enthalten** (Erweiterung in späteren MS): Components-Referenz, Data
+**Not included** (planned for later milestones): components reference, Data
 Quality, Data Catalog, Data Stewardship, ESB, API Designer, MDM, 7.x.
 
-## Architektur
+## Architecture
 
 ```
 crawler/       # discovery / fetch / extract / run / validate
-distill/       # cluster (heuristisch) / build_topics (mechanisch) / validate_citations
+distill/       # cluster (heuristic) / build_topics (mechanical) / validate_citations
 package/       # build_index, build_chat_bundle
 spike/         # MS0 discovery findings + extract spike
-skill-output/  # Build-Artefakt → per cc-install gelinkt nach ~/.claude/skills/
-dist/          # Chat-Distribution → ZIP für claude.ai-Upload
+skill-output/  # build artefact → linked into ~/.claude/skills/ via cc-install
+dist/          # chat distribution → ZIP for claude.ai upload
 ```
 
-Detail-Plan unter `~/.claude/plans/ich-will-ein-tool-linear-sundae.md` (lokal,
-nicht im Repo).
+## Extending
 
-## Erweitern
+To cover additional Talend products or other Qlik docs (Sense, QlikView):
 
-Neue Talend-Produkte oder andere Qlik-Doku (Sense, QlikView):
-
-1. Sub-Sitemap-Namen aus `https://help.qlik.com/talend/sitemap.xml` (oder
-   `https://help.qlik.com/sitemap.xml`) raussuchen.
-2. In `crawler/config.py` unter `PRODUCT_SITEMAPS` ergänzen.
+1. Look up sub-sitemap names in `https://help.qlik.com/talend/sitemap.xml`
+   (or `https://help.qlik.com/sitemap.xml`).
+2. Add them to `PRODUCT_SITEMAPS` in `crawler/config.py`.
 3. `make fresh`.
 
 ## Roadmap (post-MS1)
 
-- LLM-basierte Distillation als Topic-Layer (aktuell: rein mechanisch, ohne
-  Halluzinationsrisiko, dafür weniger Token-Reduktion)
-- Re-Crawl-Diff-Report (was hat sich geändert)
-- Components-Referenz als separater Sub-Skill
-- 7.x-Support parallel (zweiter Versions-Slot)
-- Generalisierung auf Qlik Sense / QlikView / Replicate / Compose
+- LLM-based distillation as an additional topic layer (current build is
+  purely mechanical — no hallucination risk, but lower token reduction)
+- Re-crawl diff report (what changed between snapshots)
+- Components reference as a separate sub-skill
+- 7.x support in parallel (second version slot)
+- Generalisation to Qlik Sense / QlikView / Replicate / Compose
 
-## Lizenz
+## License
 
-Der Code in diesem Repository steht unter der [MIT-Lizenz](LICENSE).
+Code in this repository is licensed under [MIT](LICENSE).
 
-### Hinweis zum gecrawlten Inhalt
+### Note on crawled content
 
-Die MIT-Lizenz deckt **ausschließlich den Quellcode** dieses Repos ab. Der
-Crawler lädt Dokumentation von `help.qlik.com/talend`, deren Eigentümer Qlik
-ist und die Qliks eigenen Nutzungsbedingungen unterliegt. Der gecrawlte und
-destillierte Content ist **nicht** Bestandteil dieses Repos und muss von
-jedem Nutzer lokal über `make fresh` neu erzeugt werden. Die Verantwortung
-für die Einhaltung der Qlik-Nutzungsbedingungen beim Ausführen des Crawlers
-liegt beim Nutzer.
+The MIT license covers **the source code only**. The crawler downloads
+documentation from `help.qlik.com/talend`, which is owned by Qlik and
+governed by Qlik's own terms of use. The crawled and distilled content is
+**not** part of this repo and must be regenerated locally by each user via
+`make fresh`. Users are responsible for complying with Qlik's terms of use
+when running the crawler.
 
-Dieses Projekt ist **nicht** mit Qlik affiliiert oder von Qlik unterstützt.
+This project is **not** affiliated with or endorsed by Qlik.
