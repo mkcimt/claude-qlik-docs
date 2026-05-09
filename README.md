@@ -34,25 +34,57 @@ in `.gitignore`. Dieses Repo enthält nur **Code + Skill-Scaffolding** (z. B.
 ```bash
 # Voraussetzungen: macOS, Python 3.9+, uv (https://docs.astral.sh/uv/), make
 brew install uv
-git clone https://github.com/<user>/claude-qlik-docs.git
+git clone https://github.com/ElRakiti/claude-qlik-docs.git
 cd claude-qlik-docs
 uv sync                    # legt .venv an, installiert deps
-make fresh                 # crawlt (~30 min) + baut Topics + installiert Skill
+make fresh                 # crawlt (~30 min) + baut Topics + cc-install
 ```
 
 `make fresh` führt aus:
-1. `make crawl`    — Crawl von help.qlik.com (~30 min, ~3000 Seiten)
-2. `make build`    — Cluster + Topic-Build + Index + Validate
-3. `make install`  — Symlink nach `~/.claude/skills/qlik-talend`
+1. `make crawl`       — Crawl von help.qlik.com (~30 min, ~3000 Seiten)
+2. `make build`       — Cluster + Topic-Build + Index + Validate
+3. `make cc-install`  — Symlink nach `~/.claude/skills/qlik-talend`
 
 Danach in einer **neuen** Claude-Code-Session: einfach Talend-Fragen stellen.
 Der Skill triggert automatisch über die Description in `SKILL.md`.
 
+## Distribution-Targets
+
+Zwei Oberflächen, zwei Targets — getrennt benannt damit klar ist, was wohin
+geht:
+
+### Claude Code (CLI, lokal auf deinem Rechner)
+
+```bash
+make cc-install      # symlinkt skill-output/qlik-talend → ~/.claude/skills/qlik-talend
+make cc-uninstall    # entfernt den Symlink
+```
+
+Der Skill nutzt direkt die lokalen `raw/`-Dateien als Quelle bei
+Detail-Lookups — maximale Treffergenauigkeit, kein Netz nötig.
+
+### Claude Chat (claude.ai, im Browser)
+
+```bash
+make chat-bundle     # erzeugt dist/qlik-talend-chat.zip (~600 KB)
+```
+
+Der Bundle enthält **keine** Roh-Dateien (Chat hat keinen Filesystem-Zugriff).
+Stattdessen verweisen die Citations-Tabellen direkt auf die kanonischen URLs
+auf `help.qlik.com/talend`. Bei Detail-Bedarf kann Claude die URL via WebFetch
+ziehen.
+
+Upload in claude.ai:
+- **Settings → Skills**: ZIP hochladen (Pro/Team/Enterprise mit Skills-Feature).
+- **Project Knowledge**: Inhalt von `dist/qlik-talend-chat/` in ein Project
+  droppen.
+
 ## Re-Crawl
 
 ```bash
-make crawl    # idempotent, ETag/Hash-Cache schont Bandbreite
-make build    # Topics + Index neu generieren
+make crawl           # idempotent, ETag/Hash-Cache schont Bandbreite
+make build           # Topics + Index neu generieren
+make chat-bundle     # optional: Chat-ZIP neu bauen
 ```
 
 ## Scope (MS1)
@@ -70,11 +102,12 @@ Quality, Data Catalog, Data Stewardship, ESB, API Designer, MDM, 7.x.
 ## Architektur
 
 ```
-crawler/      # discovery / fetch / extract / run / validate
-distill/      # cluster (heuristisch) / build_topics (mechanisch) / validate_citations
-package/      # build_index (top-level + per-group)
-spike/        # MS0 discovery findings + extract spike
-skill-output/ # Build-Artefakt → wird per Symlink unter ~/.claude/skills/ gelinkt
+crawler/       # discovery / fetch / extract / run / validate
+distill/       # cluster (heuristisch) / build_topics (mechanisch) / validate_citations
+package/       # build_index, build_chat_bundle
+spike/         # MS0 discovery findings + extract spike
+skill-output/  # Build-Artefakt → per cc-install gelinkt nach ~/.claude/skills/
+dist/          # Chat-Distribution → ZIP für claude.ai-Upload
 ```
 
 Detail-Plan unter `~/.claude/plans/ich-will-ein-tool-linear-sundae.md` (lokal,

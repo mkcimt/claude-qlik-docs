@@ -33,3 +33,4 @@ spike/out/
 
 # Local Claude config
 .claude/
+dist/
