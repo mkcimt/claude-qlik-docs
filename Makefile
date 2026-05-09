@@ -1,11 +1,12 @@
 .PHONY: help crawl cluster topics index validate build clean fresh test \
-        cc-install cc-uninstall chat-bundle
+        cc-install cc-uninstall chat-bundle project-bundle
 
 SKILL_NAME := qlik-talend
 SKILL_SRC := $(CURDIR)/skill-output/$(SKILL_NAME)
 SKILL_DST := $(HOME)/.claude/skills/$(SKILL_NAME)
 CHAT_BUNDLE_DIR := $(CURDIR)/dist/qlik-talend-chat
 CHAT_BUNDLE_ZIP := $(CURDIR)/dist/qlik-talend-chat.zip
+PROJECT_BUNDLE_DIR := $(CURDIR)/dist/qlik-talend-project
 
 help:
 	@echo "Build pipeline (run in order, or use 'make fresh'):"
@@ -19,7 +20,8 @@ help:
 	@echo "Distribution targets — pick the surface you need:"
 	@echo "  make cc-install    — Claude Code: symlink skill into ~/.claude/skills/$(SKILL_NAME)"
 	@echo "  make cc-uninstall  — Claude Code: remove symlink"
-	@echo "  make chat-bundle   — Claude Chat (claude.ai): build dist/qlik-talend-chat.zip"
+	@echo "  make chat-bundle   — Claude Chat Skill (claude.ai, /qlik-talend): dist/qlik-talend-chat.zip"
+	@echo "  make project-bundle — Claude Project Knowledge (claude.ai, implicit): dist/qlik-talend-project/"
 	@echo
 	@echo "Convenience:"
 	@echo "  make fresh         — wipe outputs, recrawl, rebuild, cc-install"
@@ -64,12 +66,15 @@ chat-bundle:
 	uv run python -m package.build_chat_bundle
 	@echo
 	@echo "Upload to claude.ai:"
-	@echo "  - As a Skill (Settings -> Skills): upload $(CHAT_BUNDLE_ZIP)"
-	@echo "  - As Project Knowledge: drop the contents of $(CHAT_BUNDLE_DIR) into a Project"
+	@echo "  Settings -> Skills -> upload $(CHAT_BUNDLE_ZIP)"
+	@echo "  Then invoke in chat with: /qlik-talend"
+
+project-bundle:
+	uv run python -m package.build_project_bundle
 
 clean:
 	rm -rf $(SKILL_SRC)/topics $(SKILL_SRC)/index $(SKILL_SRC)/index.md
-	rm -rf $(CHAT_BUNDLE_DIR) $(CHAT_BUNDLE_ZIP)
+	rm -rf $(CHAT_BUNDLE_DIR) $(CHAT_BUNDLE_ZIP) $(PROJECT_BUNDLE_DIR)
 	rm -f topic_map.yaml
 
 fresh:

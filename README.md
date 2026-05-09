@@ -67,26 +67,37 @@ look-ups — maximum fidelity, no network needed.
 
 ### Claude Chat (claude.ai, in the browser)
 
+claude.ai supports two consumption modes — pick whichever fits your workflow:
+
+#### A) Skill (slash-command, explicit invocation)
+
 ```bash
-make chat-bundle     # produces dist/qlik-talend-chat.zip (~300 KB, 37 files)
+make chat-bundle     # → dist/qlik-talend-chat.zip (~300 KB, 37 files)
 ```
 
-The bundle contains **no** raw files (Chat has no filesystem access). It also
-**consolidates topics per guide+version into one file each** (28 guide files
-instead of 441 topic files), to stay under claude.ai's 200-file Skill-upload
-limit. Each consolidated guide has a TOC at the top and anchored sections
-(`<a id="topic-<id>">`) per topic, so Claude can `Read` the file with
-`offset`/`limit` to jump to a specific topic.
+Upload under **Settings → Skills**. In any chat, invoke with `/qlik-talend`.
+The bundle has no raw files (Chat has no filesystem) and consolidates topics
+per guide+version into single files with anchored sections, to fit
+claude.ai's 200-file Skill-upload limit. Citations point at canonical URLs
+on `help.qlik.com/talend`; Claude WebFetches when exact wording is needed.
 
-Every Citations table still points at the canonical URLs on
-`help.qlik.com/talend` — when exact wording is needed, Claude WebFetches the
-URL.
+#### B) Project Knowledge (implicit, no slash command)
 
-Upload to claude.ai:
-- **Settings → Skills**: upload the ZIP (Pro/Team/Enterprise with the Skills
-  feature).
-- **Project Knowledge**: drop the contents of `dist/qlik-talend-chat/` into a
-  Project.
+```bash
+make project-bundle  # → dist/qlik-talend-project/ (~1.8 MB, 38 files)
+```
+
+This is a **folder, not a ZIP**. Steps:
+1. Create a new Project in claude.ai.
+2. Open `dist/qlik-talend-project/PROJECT-INSTRUCTIONS.md`, copy its
+   contents, paste into the Project's **Custom Instructions** field.
+3. Upload the rest (`index.md`, `index/`, `topics/`, `BUNDLE-INFO.txt`,
+   `README-FOR-USER.md`) as Project Knowledge files.
+
+After that, every chat in the Project has the Talend reference available
+without any slash command. Trade-off: Project Knowledge is searched
+proactively, so token cost per chat is slightly higher than the
+Skill's pay-on-load model.
 
 ## Tests
 
