@@ -100,7 +100,16 @@ Neue Talend-Produkte oder andere Qlik-Doku (Sense, QlikView):
 
 ## Lizenz
 
-[MIT](LICENSE) für den Code in diesem Repo. Beachte den Hinweis in der
-LICENSE-Datei zum gecrawlten Qlik-Content: dieser ist nicht Bestandteil des
-Repos und unterliegt Qliks eigenen Nutzungsbedingungen. Das Projekt ist nicht
-mit Qlik affiliiert oder von Qlik unterstützt.
+Der Code in diesem Repository steht unter der [MIT-Lizenz](LICENSE).
+
+### Hinweis zum gecrawlten Inhalt
+
+Die MIT-Lizenz deckt **ausschließlich den Quellcode** dieses Repos ab. Der
+Crawler lädt Dokumentation von `help.qlik.com/talend`, deren Eigentümer Qlik
+ist und die Qliks eigenen Nutzungsbedingungen unterliegt. Der gecrawlte und
+destillierte Content ist **nicht** Bestandteil dieses Repos und muss von
+jedem Nutzer lokal über `make fresh` neu erzeugt werden. Die Verantwortung
+für die Einhaltung der Qlik-Nutzungsbedingungen beim Ausführen des Crawlers
+liegt beim Nutzer.
+
+Dieses Projekt ist **nicht** mit Qlik affiliiert oder von Qlik unterstützt.

@@ -19,15 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-NOTE ON CRAWLED CONTENT:
-
-This MIT license covers the source code in this repository only. The crawler
-fetches documentation from help.qlik.com/talend, which is owned by Qlik and
-governed by Qlik's own terms. The crawled and distilled content is NOT
-included in this repository and must be regenerated locally by each user via
-`make fresh`. Users are responsible for compliance with Qlik's terms of use
-when running the crawler. This project is not affiliated with or endorsed by
-Qlik.
