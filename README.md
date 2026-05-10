@@ -37,7 +37,7 @@ workflow — you can also use several in parallel.
 | Mode | Surface | Activation | Build target | Output |
 |------|---------|------------|--------------|--------|
 | **Claude Code skill** | Claude Code CLI | **Auto-triggered** by SKILL description | `make cc-install` | symlink `~/.claude/skills/qlik-talend` |
-| **Chat Skill** | claude.ai (Settings → Skills) | **Slash command** `/qlik-talend` | `make chat-bundle` | `dist/qlik-talend-chat.zip` (~300 KB, 37 files) |
+| **Chat Skill** | claude.ai (Settings → Skills) | **Slash command + auto-trigger** | `make chat-bundle` | `dist/qlik-talend-chat.zip` (~300 KB, 37 files) |
 | **Project Knowledge** | claude.ai Projects | **Implicit** via Custom Instructions | `make project-bundle` | `dist/qlik-talend-project/` (~1.8 MB folder) |
 
 ### How each mode actually works
@@ -49,11 +49,14 @@ is relevant; if it is, it reads the full SKILL.md and follows its routing
 instructions. Detail look-ups go straight to the local raw markdown files.
 
 **Chat Skill (claude.ai).** You upload the ZIP under Settings → Skills.
-The skill appears in the slash picker; you invoke it explicitly with
-`/qlik-talend` at the start of (or during) a chat. Once invoked, Claude
-sees `SKILL.md` and the rest of the bundle. There are no raw files in the
-bundle — citations point at canonical URLs on `help.qlik.com/talend`, and
-Claude `WebFetch`es them when verbatim text is needed.
+The skill then appears in the `/`-picker (mode label: *"Slash command +
+auto"*), so it can be invoked **two ways**: explicitly via
+`/qlik-talend`, or **auto-triggered** by Claude when the user's question
+matches the SKILL description. The description in `SKILL.md` therefore
+serves both as the slash-picker label and as the auto-trigger signal —
+which is why it lists Talend keywords explicitly. There are no raw files
+in the bundle; citations point at canonical URLs on `help.qlik.com/talend`,
+and Claude `WebFetch`es them when verbatim text is needed.
 
 **Project Knowledge.** You create a Project in claude.ai, paste the
 generated `PROJECT-INSTRUCTIONS.md` into the Project's Custom Instructions
@@ -66,7 +69,7 @@ URLs, and `WebFetch` is the path to verbatim text.
 
 | | Claude Code | Chat Skill | Project Knowledge |
 |---|---|---|---|
-| **Activation** | Implicit (description match) | Explicit (`/qlik-talend`) | Implicit (Project Instructions) |
+| **Activation** | Implicit (description match) | `/qlik-talend` **or** auto-trigger via description | Implicit (Project Instructions) |
 | **Onboarding cost** | One-time `make cc-install` | Upload ZIP per machine | Project setup per Project |
 | **Verbatim-text fidelity** | Highest — local raw markdown always available | Good — `WebFetch` of canonical URL | Good — `WebFetch` of canonical URL |
 | **Offline use** | Yes | No (URL fetches need network) | No |
@@ -135,7 +138,9 @@ make chat-bundle     # → dist/qlik-talend-chat.zip
 ```
 
 In claude.ai: **Settings → Skills → Upload** and pick the ZIP. In any chat,
-type `/qlik-talend` to invoke it.
+either type `/qlik-talend` to invoke it explicitly, or just ask a Talend
+question — the skill description lets Claude auto-trigger it (mode label
+in the Skills UI: *"Slash command + auto"*).
 
 The bundle has no raw files (Chat has no filesystem) and consolidates
 topics per guide+version into single files with anchored sections, to fit

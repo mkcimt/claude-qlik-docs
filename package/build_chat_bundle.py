@@ -33,13 +33,14 @@ BUNDLE_ZIP = DIST / "qlik-talend-chat.zip"
 
 CHAT_SKILL_MD = """---
 name: qlik-talend
-description: Reference bundle for Qlik Talend documentation. Contains 28 consolidated guide files covering Talend Studio 8.0, Talend Management Console (Cloud), Remote Engine (Linux/Windows + Gen2), Dynamic Engine, hybrid installations, SDLC/CI-CD, and the Talend Cloud platform — each guide with a TOC, anchored topic sections, and citation tables linking to canonical pages on help.qlik.com/talend.
+description: Authoritative reference for Qlik Talend documentation (Studio 8.0, Talend Management Console Cloud, Remote Engine Linux/Windows + Gen2, Dynamic Engine, hybrid installations, SDLC/CI-CD, Talend Cloud platform). Use when answering questions about Talend Studio jobs/joblets/routes/components/context-variables/metadata/projects/Git, TMC promotions/schedules/tasks/users/tokens/environments/audit, Remote Engine setup/configuration/troubleshooting, Studio→TMC publishing, Git or CI/CD workflows in Talend, hybrid installation/migration/upgrade, or anything mentioning Talend on Qlik Cloud. Sourced from help.qlik.com/talend. Bundle contains 28 consolidated guide files with TOC + topic anchors + citation URLs.
 ---
 
 # Qlik Talend Documentation Skill (Chat edition)
 
-This skill is invoked explicitly via `/qlik-talend` in claude.ai. Once active,
-use the structure below to answer Qlik Talend questions.
+In claude.ai this skill can either be invoked explicitly via `/qlik-talend`
+in the slash picker, or auto-triggered by Claude when the user's question
+matches the description above. Once active, use the structure below.
 
 ## What's in this bundle
 
