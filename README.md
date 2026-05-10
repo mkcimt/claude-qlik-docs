@@ -20,7 +20,7 @@ context**, not 14 MB.
    Linux/Windows, Dynamic Engine, installation, SDLC/CI-CD, Cloud platform)
    with `httpx + BeautifulSoup + markdownify`. Honours `robots.txt`,
    throttles, retries, hash-caches.
-2. **Clusters and distils**: ~3,000 raw pages → ~440 topic clusters. Each
+2. **Clusters and distils**: 3,018 raw pages → 454 topic clusters. Each
    topic gets a markdown file with TL;DR, procedure outline, notes /
    restrictions, and a citations table that maps every anchor exactly to
    its raw file and canonical URL. Distillation is **mechanical** — no LLM
@@ -189,22 +189,66 @@ repo ships only **code and skill scaffolding** (e.g. `SKILL.md`,
 `PROJECT-INSTRUCTIONS.md`). Each user crawls locally — comparable to a
 `pip install`, not a content mirror.
 
-## Scope (MS1, current)
+## Integrated documentation guides
 
-In scope:
+Each line below is one **canonical Qlik Talend doc entry page**; all
+sub-pages of that guide are crawled via Qlik's official sitemap (so
+coverage is essentially complete — no recursive link-walking needed).
+The current build covers **3,018 pages → 454 topics** across these guides:
 
-- Talend Studio 8.0 (User Guide + companion docs: getting started, metadata,
-  context variables, secure services, components availability)
-- Talend Management Console (Cloud) + companion docs
-- Remote Engine Linux + Windows (Cloud) + Gen2 + Dynamic Engine
-- Installation Guide Linux/Windows (Cloud + 8.0), Hybrid, migration / upgrade
-- SDLC / CI-CD best practices (8.0 + Cloud)
-- Talend Cloud getting started + glossary
+**studio** (Talend Studio 8.0 — latest R-code at crawl):
+- https://help.qlik.com/talend/en-US/studio-user-guide/8.0-R2026-04/
+- https://help.qlik.com/talend/en-US/discovering-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/creating-using-metadata-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/using-context-variables-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/studio-getting-started-guide-data-integration/8.0/
+- https://help.qlik.com/talend/en-US/joining-two-data-sources-tmap-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/reading-a-file-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/sorting-a-file-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/access-secure-services-with-studio-and-runtime/8.0/
+- https://help.qlik.com/talend/en-US/studio-components-availability/8.0/
 
-Out of scope (MS1):
+**tmc** (Talend Management Console, Cloud):
+- https://help.qlik.com/talend/en-US/management-console-user-guide/Cloud/
+- https://help.qlik.com/talend/en-US/management-console-with-pipeline-designer/Cloud/
+- https://help.qlik.com/talend/en-US/tmc-account-limits/Cloud/
 
-- Components reference, Data Quality, Data Catalog, Data Stewardship
-- ESB, API Designer, MDM, Data Inventory, Data Preparation
+**remote-engine** (Remote Engine + Dynamic Engine, Cloud):
+- https://help.qlik.com/talend/en-US/remote-engine-user-guide-linux/Cloud/
+- https://help.qlik.com/talend/en-US/remote-engine-user-guide-windows/Cloud/
+- https://help.qlik.com/talend/en-US/remote-engine-gen2-quick-start-guide/Cloud/
+- https://help.qlik.com/talend/en-US/dynamic-engine-configuration-guide/Cloud/
+
+**installation** (Cloud + 8.0):
+- https://help.qlik.com/talend/en-US/installation-guide-linux/Cloud/
+- https://help.qlik.com/talend/en-US/installation-guide-windows/Cloud/
+- https://help.qlik.com/talend/en-US/installation-guide-linux/8.0/
+- https://help.qlik.com/talend/en-US/installation-guide-windows/8.0/
+- https://help.qlik.com/talend/en-US/hybrid-installation-guide-linux/Cloud/
+- https://help.qlik.com/talend/en-US/hybrid-installation-guide-windows/Cloud/
+- https://help.qlik.com/talend/en-US/migration-upgrade-guide/8.0/
+
+**sdlc-cicd** (SDLC / CI-CD):
+- https://help.qlik.com/talend/en-US/software-dev-lifecycle-best-practices-guide/8.0/
+- https://help.qlik.com/talend/en-US/development-operational-management/Cloud/
+
+**cloud-platform** (Talend Cloud platform basics):
+- https://help.qlik.com/talend/en-US/talend-cloud-getting-started/Cloud/
+- https://help.qlik.com/talend/en-US/talend-glossary/Cloud/
+
+**api** (Talend Cloud APIs):
+- https://help.qlik.com/talend/en-US/api-user-guide/Cloud/
+
+The same list — with comments on the doubled `/talend/talend/...` robots
+quirk and "how to add another guide" — also lives in the docstring of
+[`crawler/config.py`](crawler/config.py).
+
+### Out of scope (current)
+
+- Components reference (Studio components / connectors)
+- Data Quality, Data Catalog, Data Stewardship, Data Preparation
+- ESB, API Designer (separate from API user guide), API Portal, API Tester
+- MDM, Data Inventory
 - Talend 7.x
 
 ## Architecture

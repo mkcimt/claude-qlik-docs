@@ -1,11 +1,64 @@
-"""MS1 crawler configuration: which Talend sitemaps to crawl.
+"""Crawler configuration: which Talend sitemaps to crawl.
 
-Each entry maps a logical product name → list of sub-sitemap names (without
+Each entry maps a logical product group → list of sub-sitemap names (without
 .xml suffix). The crawler resolves these against
 `https://help.qlik.com/talend/sitemap_<name>_en-US.xml`.
 
 Studio User Guide is special: its sitemap name embeds the R-code. We resolve
 the latest R-code at runtime by inspecting the Talend sitemap-index.
+
+Integrated documentation entry pages (one per sitemap below):
+
+studio:
+- https://help.qlik.com/talend/en-US/studio-user-guide/8.0-R<latest>/
+- https://help.qlik.com/talend/en-US/discovering-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/creating-using-metadata-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/using-context-variables-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/studio-getting-started-guide-data-integration/8.0/
+- https://help.qlik.com/talend/en-US/joining-two-data-sources-tmap-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/reading-a-file-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/sorting-a-file-talend-studio/8.0/
+- https://help.qlik.com/talend/en-US/access-secure-services-with-studio-and-runtime/8.0/
+- https://help.qlik.com/talend/en-US/studio-components-availability/8.0/
+
+tmc:
+- https://help.qlik.com/talend/en-US/management-console-user-guide/Cloud/
+- https://help.qlik.com/talend/en-US/management-console-with-pipeline-designer/Cloud/
+- https://help.qlik.com/talend/en-US/tmc-account-limits/Cloud/
+
+remote-engine:
+- https://help.qlik.com/talend/en-US/remote-engine-user-guide-linux/Cloud/
+- https://help.qlik.com/talend/en-US/remote-engine-user-guide-windows/Cloud/
+- https://help.qlik.com/talend/en-US/remote-engine-gen2-quick-start-guide/Cloud/
+- https://help.qlik.com/talend/en-US/dynamic-engine-configuration-guide/Cloud/
+
+installation:
+- https://help.qlik.com/talend/en-US/installation-guide-linux/Cloud/
+- https://help.qlik.com/talend/en-US/installation-guide-windows/Cloud/
+- https://help.qlik.com/talend/en-US/installation-guide-linux/8.0/
+- https://help.qlik.com/talend/en-US/installation-guide-windows/8.0/
+- https://help.qlik.com/talend/en-US/hybrid-installation-guide-linux/Cloud/
+- https://help.qlik.com/talend/en-US/hybrid-installation-guide-windows/Cloud/
+- https://help.qlik.com/talend/en-US/migration-upgrade-guide/8.0/
+
+sdlc-cicd:
+- https://help.qlik.com/talend/en-US/software-dev-lifecycle-best-practices-guide/8.0/
+- https://help.qlik.com/talend/en-US/development-operational-management/Cloud/
+
+cloud-platform:
+- https://help.qlik.com/talend/en-US/talend-cloud-getting-started/Cloud/
+- https://help.qlik.com/talend/en-US/talend-glossary/Cloud/
+
+api:
+- https://help.qlik.com/talend/en-US/api-user-guide/Cloud/
+
+To extend coverage with another guide:
+1. Look up the sub-sitemap name in https://help.qlik.com/talend/sitemap.xml
+   (filter for `_<latest-version>_en-US.xml`).
+2. Add `<sitemap-name>_<version>` to the appropriate group below.
+3. Add the corresponding entry URL to the list above for documentation.
+4. Run `make fresh` (or just `make crawl && make build` if the raw mirror
+   is otherwise current — ETag/hash cache skips unchanged pages).
 """
 from __future__ import annotations
 
@@ -62,5 +115,8 @@ PRODUCT_SITEMAPS: dict[str, list[str]] = {
     "cloud-platform": [
         "talend-cloud-getting-started_Cloud",
         "talend-glossary_Cloud",
+    ],
+    "api": [
+        "api-user-guide_Cloud",
     ],
 }
