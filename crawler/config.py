@@ -71,12 +71,45 @@ esb:
 To extend coverage with another guide:
 1. Look up the sub-sitemap name in https://help.qlik.com/talend/sitemap.xml
    (filter for `_<latest-version>_en-US.xml`).
-2. Add `<sitemap-name>_<version>` to the appropriate group below.
-3. Add the corresponding entry URL to the list above for documentation.
-4. Run `make fresh` (or just `make crawl && make build` if the raw mirror
-   is otherwise current — ETag/hash cache skips unchanged pages).
+2. Add `<sitemap-name>_<version>` to the appropriate group below (or create
+   a new group key).
+3. Add a display label to GROUP_LABELS and a version string to GROUP_VERSIONS
+   below (used by `package/update_meta.py` to regenerate README + SKILL.md).
+4. Update the SKILL.md `description` frontmatter (the auto-trigger keywords
+   for claude.ai) — this is the only thing NOT auto-generated.
+5. Run `make fresh` (or just `make crawl && make build`).
 """
 from __future__ import annotations
+
+# ---------------------------------------------------------------------------
+# Group metadata — used by package/update_meta.py to auto-regenerate
+# README.md and SKILL.md after each build.
+# Add an entry here whenever you add a new product group to PRODUCT_SITEMAPS.
+# ---------------------------------------------------------------------------
+
+# Short parenthetical label shown in README "Integrated documentation guides".
+GROUP_LABELS: dict[str, str] = {
+    "studio": "Talend Studio 8.0 — latest R-code at crawl",
+    "tmc": "Talend Management Console, Cloud",
+    "remote-engine": "Remote Engine + Dynamic Engine, Cloud",
+    "installation": "Cloud + 8.0",
+    "sdlc-cicd": "SDLC / CI-CD",
+    "cloud-platform": "Talend Cloud platform basics",
+    "api": "Talend Cloud APIs + API Designer / Portal / Services / Tester",
+    "esb": "Talend ESB 8.0 — Camel routes, CXF services, Karaf container",
+}
+
+# Version string shown in the SKILL.md coverage table.
+GROUP_VERSIONS: dict[str, str] = {
+    "studio": "8.0 (latest R-code at crawl)",
+    "tmc": "Cloud",
+    "remote-engine": "Cloud",
+    "installation": "Cloud + 8.0",
+    "sdlc-cicd": "Cloud + 8.0",
+    "cloud-platform": "Cloud",
+    "api": "Cloud",
+    "esb": "8.0",
+}
 
 USER_AGENT = "qlik-docs-skill-builder/0.1 (personal use; +contact: mirco.kriesten@cimt-ag.de)"
 LOCALE = "en-US"

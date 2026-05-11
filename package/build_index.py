@@ -21,12 +21,14 @@ INDEX = SKILL_OUT / "index.md"
 INDEX_DIR = SKILL_OUT / "index"
 
 GROUP_DESCRIPTIONS: dict[str, str] = {
+    "api": "Talend Cloud APIs — TMC management API, API Designer, API Portal, API Tester.",
+    "cloud-platform": "Talend Cloud platform basics — getting started, glossary, account, regions.",
+    "esb": "Talend ESB (8.0) — Camel routes, CXF services, Karaf container, STS, infrastructure services.",
+    "installation": "Studio + TMC + Engine installation, hybrid deployments, migration / upgrade (Cloud + 8.0).",
+    "remote-engine": "Talend Remote Engine (Cloud, Linux & Windows) + Dynamic Engine — install, configure, run.",
+    "sdlc-cicd": "Software Development Life Cycle, CI/CD, Git, environments, promotions, operational mgmt.",
     "studio": "Talend Studio (8.0) — job design, components, projects, Git, metadata, deployment.",
     "tmc": "Talend Management Console (Cloud) — promotions, schedules, users, tokens, environments, audit.",
-    "remote-engine": "Talend Remote Engine (Cloud, Linux & Windows) + Dynamic Engine — install, configure, run.",
-    "installation": "Studio + TMC + Engine installation, hybrid deployments, migration / upgrade (Cloud + 8.0).",
-    "sdlc-cicd": "Software Development Life Cycle, CI/CD, Git, environments, promotions, operational mgmt.",
-    "cloud-platform": "Talend Cloud platform basics — getting started, glossary, account, regions.",
 }
 
 

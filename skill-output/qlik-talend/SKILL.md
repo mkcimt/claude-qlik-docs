@@ -23,13 +23,14 @@ If a question is *vaguely* Talend-related but really about a non-Talend product 
 
 | Group | Versions | Pages | Topics |
 |-------|---------|------:|-------:|
-| studio | 8.0 (latest R-code at crawl) | ~1,068 | ~110 |
-| tmc | Cloud | ~328 | ~18 |
-| remote-engine | Cloud | ~324 | ~30 |
-| installation | Cloud + 8.0 | ~1,032 | ~120 |
-| sdlc-cicd | Cloud + 8.0 | ~68 | ~12 |
-| cloud-platform | Cloud | ~127 | ~14 |
+| api | Cloud | ~314 | ~56 |
+| cloud-platform | Cloud | ~127 | ~20 |
 | esb | 8.0 | ~903 | ~158 |
+| installation | Cloud + 8.0 | ~1,032 | ~150 |
+| remote-engine | Cloud | ~324 | ~69 |
+| sdlc-cicd | Cloud + 8.0 | ~68 | ~16 |
+| studio | 8.0 (latest R-code at crawl) | ~1,068 | ~128 |
+| tmc | Cloud | ~328 | ~58 |
 
 **Out of scope (do not assume coverage):** Components/connectors reference, Data Catalog, Data Quality, Data Stewardship, Data Preparation, API Designer, MDM, Data Inventory, all 7.x docs.
 

@@ -248,7 +248,7 @@ repo ships only **code and skill scaffolding** (e.g. `SKILL.md`,
 Each line below is one **canonical Qlik Talend doc entry page**; all
 sub-pages of that guide are crawled via Qlik's official sitemap (so
 coverage is essentially complete — no recursive link-walking needed).
-The current build covers **3,018 pages → 454 topics** across these guides:
+The current build covers **4,164 pages → 655 topics** across these guides:
 
 **studio** (Talend Studio 8.0 — latest R-code at crawl):
 - https://help.qlik.com/talend/en-US/studio-user-guide/8.0-R2026-04/
@@ -298,6 +298,16 @@ The current build covers **3,018 pages → 454 topics** across these guides:
 - https://help.qlik.com/talend/en-US/api-services-getting-started-guide-api-services-platform/Cloud/
 - https://help.qlik.com/talend/en-US/api-tester-user-guide/Cloud/
 
+**esb** (Talend ESB 8.0 — Camel routes, CXF services, Karaf container):
+- https://help.qlik.com/talend/en-US/esb-developer-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-service-developer-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-container-administration-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-sts-user-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-infra-services-configuration-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-system-management/8.0/
+- https://help.qlik.com/talend/en-US/esb-best-practices/8.0/
+- https://help.qlik.com/talend/en-US/studio-getting-started-guide-esb/8.0/
+- https://help.qlik.com/talend/en-US/esb-glossary/8.0/
 The same list — with comments on the doubled `/talend/talend/...` robots
 quirk and "how to add another guide" — also lives in the docstring of
 [`crawler/config.py`](crawler/config.py).

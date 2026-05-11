@@ -9,7 +9,7 @@ Usage:
     python tasks.py <target> [args]
 
 Targets:
-    crawl, cluster, topics, index, validate, build, test,
+    crawl, cluster, topics, index, update-meta, validate, build, test,
     cc-install, cc-uninstall, chat-bundle, project-bundle,
     fresh, clean, help
 """
@@ -94,8 +94,12 @@ def cmd_validate(_args) -> int:
     return rc1 or rc2
 
 
+def cmd_update_meta(_args) -> int:
+    return uv_python("package.update_meta")
+
+
 def cmd_build(_args) -> int:
-    for step in (cmd_cluster, cmd_topics, cmd_index, cmd_validate):
+    for step in (cmd_cluster, cmd_topics, cmd_index, cmd_update_meta, cmd_validate):
         rc = step(None)
         if rc:
             return rc
@@ -246,6 +250,7 @@ COMMANDS = {
     "cluster": cmd_cluster,
     "topics": cmd_topics,
     "index": cmd_index,
+    "update-meta": cmd_update_meta,
     "validate": cmd_validate,
     "build": cmd_build,
     "test": cmd_test,
