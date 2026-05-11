@@ -20,7 +20,7 @@ context**, not 14 MB.
    Linux/Windows, Dynamic Engine, installation, SDLC/CI-CD, Cloud platform)
    with `httpx + BeautifulSoup + markdownify`. Honours `robots.txt`,
    throttles, retries, hash-caches.
-2. **Clusters and distils**: 3,018 raw pages → 454 topic clusters. Each
+2. **Clusters and distils**: 3,261 raw pages → 497 topic clusters. Each
    topic gets a markdown file with TL;DR, procedure outline, notes /
    restrictions, and a citations table that maps every anchor exactly to
    its raw file and canonical URL. Distillation is **mechanical** — no LLM
@@ -236,8 +236,13 @@ The current build covers **3,018 pages → 454 topics** across these guides:
 - https://help.qlik.com/talend/en-US/talend-cloud-getting-started/Cloud/
 - https://help.qlik.com/talend/en-US/talend-glossary/Cloud/
 
-**api** (Talend Cloud APIs):
+**api** (Talend Cloud APIs + API Designer / Portal / Services / Tester):
 - https://help.qlik.com/talend/en-US/api-user-guide/Cloud/
+- https://help.qlik.com/talend/en-US/api-designer-getting-started-guide/Cloud/
+- https://help.qlik.com/talend/en-US/api-designer-user-guide/Cloud/
+- https://help.qlik.com/talend/en-US/api-portal-deployment-guide/Cloud/
+- https://help.qlik.com/talend/en-US/api-services-getting-started-guide-api-services-platform/Cloud/
+- https://help.qlik.com/talend/en-US/api-tester-user-guide/Cloud/
 
 The same list — with comments on the doubled `/talend/talend/...` robots
 quirk and "how to add another guide" — also lives in the docstring of
@@ -247,7 +252,7 @@ quirk and "how to add another guide" — also lives in the docstring of
 
 - Components reference (Studio components / connectors)
 - Data Quality, Data Catalog, Data Stewardship, Data Preparation
-- ESB, API Designer (separate from API user guide), API Portal, API Tester
+- ESB
 - MDM, Data Inventory
 - Talend 7.x
 

@@ -51,6 +51,11 @@ cloud-platform:
 
 api:
 - https://help.qlik.com/talend/en-US/api-user-guide/Cloud/
+- https://help.qlik.com/talend/en-US/api-designer-getting-started-guide/Cloud/
+- https://help.qlik.com/talend/en-US/api-designer-user-guide/Cloud/
+- https://help.qlik.com/talend/en-US/api-portal-deployment-guide/Cloud/
+- https://help.qlik.com/talend/en-US/api-services-getting-started-guide-api-services-platform/Cloud/
+- https://help.qlik.com/talend/en-US/api-tester-user-guide/Cloud/
 
 To extend coverage with another guide:
 1. Look up the sub-sitemap name in https://help.qlik.com/talend/sitemap.xml
@@ -118,5 +123,10 @@ PRODUCT_SITEMAPS: dict[str, list[str]] = {
     ],
     "api": [
         "api-user-guide_Cloud",
+        "api-designer-getting-started-guide_Cloud",
+        "api-designer-user-guide_Cloud",
+        "api-portal-deployment-guide_Cloud",
+        "api-services-getting-started-guide-api-services-platform_Cloud",
+        "api-tester-user-guide_Cloud",
     ],
 }

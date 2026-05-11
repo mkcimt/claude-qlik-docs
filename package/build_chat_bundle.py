@@ -42,6 +42,45 @@ In claude.ai this skill can either be invoked explicitly via `/qlik-talend`
 in the slash picker, or auto-triggered by Claude when the user's question
 matches the description above. Once active, use the structure below.
 
+## Tool requirements
+
+This skill is **designed to work with WebFetch**. The bundle itself contains
+distilled summaries (TL;DRs, procedure outlines, notes, version
+constraints) — enough to answer most questions directly. For exact
+procedure text, parameter lists, code snippets, or verbatim quotes, every
+topic file has a `## Citations` table mapping its anchors to canonical URLs
+on `help.qlik.com/talend`; use `WebFetch` on those URLs to retrieve the
+full source page.
+
+- **WebFetch (required for verbatim text):** if unavailable, the skill
+  still answers most questions from the distilled summaries, but cannot
+  retrieve exact wording.
+- **WebSearch (optional fallback):** if a user asks about content not in
+  the bundle (e.g. a Talend product marked out-of-scope below, or a topic
+  that has shifted since the crawl date), WebSearch over `help.qlik.com`
+  is a reasonable next step before declining.
+
+## What's in the bundle (and what's not)
+
+The bundle includes, per page in the source documentation:
+- A TL;DR (~1 sentence).
+- A procedure outline (the page's H2/H3 headings).
+- Notes / restrictions / warnings extracted verbatim.
+- Version constraints declared on the page.
+- A citation entry with the canonical URL.
+
+The bundle **does not** include:
+- Full procedure text (the actual step-by-step prose between headings).
+- Exact parameter tables for components.
+- Code snippets / configuration examples in full.
+- Screenshots, diagrams, or image captions.
+
+If the question can be answered from a TL;DR + outline + notes (e.g.
+"what does TMC promotions do?", "what version of Studio do I need for X?",
+"what's the entry point for configuring Remote Engine on Linux?"), answer
+directly. If it needs verbatim text or exact configuration values, fetch
+the source URL.
+
 ## What's in this bundle
 
 - **Coverage:** Talend Studio 8.0 (Studio User Guide + companion docs),
