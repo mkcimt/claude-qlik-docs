@@ -57,7 +57,8 @@ def skill_dst() -> Path:
 def run(*cmd: str, check: bool = True) -> int:
     """Run a subprocess, streaming output to the current terminal."""
     print(f"  $ {' '.join(cmd)}")
-    proc = subprocess.run(cmd, cwd=ROOT, check=check)
+    env = {**os.environ, "PYTHONUTF8": "1"}
+    proc = subprocess.run(cmd, cwd=ROOT, check=check, env=env)
     return proc.returncode
 
 
@@ -216,10 +217,12 @@ def cmd_clean(_args) -> int:
 
 
 def cmd_fresh(_args) -> int:
-    if SKILL_SRC.exists():
-        shutil.rmtree(SKILL_SRC)
-    if TOPIC_MAP.exists():
-        TOPIC_MAP.unlink()
+    # Remove generated artefacts but preserve source-controlled files (SKILL.md).
+    cmd_clean(None)
+    for crawl_dir in (SKILL_SRC / "raw", SKILL_SRC / "meta"):
+        if crawl_dir.exists():
+            shutil.rmtree(crawl_dir)
+            print(f"  removed {crawl_dir.relative_to(ROOT)}")
     for step in (cmd_crawl, cmd_build, cmd_cc_install):
         rc = step(None)
         if rc:
