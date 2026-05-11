@@ -1,6 +1,6 @@
 ---
 name: qlik-talend
-description: Authoritative reference for Qlik Talend (Studio 8.0, Talend Management Console, Remote Engine, SDLC/CI-CD, installation/migration). Use when answering questions about Talend Studio jobs/components, TMC promotions/schedules/users, Remote Engine setup/configuration, Dynamic Engine, hybrid installations, Studio→TMC publishing, Git/CI-CD with Talend, or anything mentioning Talend on Qlik Cloud. Sourced from help.qlik.com/talend.
+description: Authoritative reference for Qlik Talend (Studio 8.0, Talend Management Console, Remote Engine, SDLC/CI-CD, installation/migration, ESB). Use when answering questions about Talend Studio jobs/components, TMC promotions/schedules/users, Remote Engine setup/configuration, Dynamic Engine, hybrid installations, Studio→TMC publishing, Git/CI-CD with Talend, ESB routes/services/container, or anything mentioning Talend on Qlik Cloud. Sourced from help.qlik.com/talend.
 ---
 
 # Qlik Talend Documentation Skill
@@ -10,6 +10,7 @@ description: Authoritative reference for Qlik Talend (Studio 8.0, Talend Managem
 Trigger on questions that mention Talend products or workflows, including but not limited to:
 
 - **Talend Studio**: jobs, joblets, routes, components (`tFooBar`), context variables, metadata, palette, projects, Git, build/export, publish to cloud, debug, MapReduce/Spark, ESB, MDM (note: MDM 8.0 is out of scope here).
+- **Talend ESB (8.0)**: Routes, Services, Camel, CXF, Container-Administration (Karaf/Felix), Security Token Service (STS), Infrastructure Services (Service Registry, Service Activity Monitoring), System Management Integration, ESB Best Practices.
 - **Talend Management Console (TMC)**: promotions, environments, workspaces, run profiles, schedules, plans, tasks, artifact repository, users/roles/tokens, audit logs, SSO, account.
 - **Remote Engine / Dynamic Engine**: install (Linux & Windows), configure, pair with TMC, run jobs/pipelines, troubleshooting, upgrade, Gen2.
 - **Installation / migration / upgrade**: Studio installer, TAC upgrade paths, hybrid deployments, JDK requirements, Tomcat upgrades.
@@ -28,8 +29,9 @@ If a question is *vaguely* Talend-related but really about a non-Talend product 
 | installation | Cloud + 8.0 | ~1,032 | ~120 |
 | sdlc-cicd | Cloud + 8.0 | ~68 | ~12 |
 | cloud-platform | Cloud | ~127 | ~14 |
+| esb | 8.0 | ~903 | ~158 |
 
-**Out of scope (do not assume coverage):** Components/connectors reference, Data Catalog, Data Quality, Data Stewardship, Data Preparation, ESB, API Designer, MDM, Data Inventory, all 7.x docs.
+**Out of scope (do not assume coverage):** Components/connectors reference, Data Catalog, Data Quality, Data Stewardship, Data Preparation, API Designer, MDM, Data Inventory, all 7.x docs.
 
 ## How to look something up — progressive disclosure
 

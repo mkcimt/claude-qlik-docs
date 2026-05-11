@@ -153,6 +153,8 @@ def load_pages() -> list[PageRef]:
         )
         if not m:
             continue
+        if not meta.get("out_path", ""):
+            continue  # skip pages that failed to crawl (no raw file)
         refs.append(
             PageRef(
                 url=url,

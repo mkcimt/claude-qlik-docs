@@ -57,6 +57,17 @@ api:
 - https://help.qlik.com/talend/en-US/api-services-getting-started-guide-api-services-platform/Cloud/
 - https://help.qlik.com/talend/en-US/api-tester-user-guide/Cloud/
 
+esb:
+- https://help.qlik.com/talend/en-US/esb-developer-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-service-developer-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-container-administration-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-sts-user-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-infra-services-configuration-guide/8.0/
+- https://help.qlik.com/talend/en-US/esb-system-management/8.0/
+- https://help.qlik.com/talend/en-US/esb-best-practices/8.0/
+- https://help.qlik.com/talend/en-US/studio-getting-started-guide-esb/8.0/
+- https://help.qlik.com/talend/en-US/esb-glossary/8.0/
+
 To extend coverage with another guide:
 1. Look up the sub-sitemap name in https://help.qlik.com/talend/sitemap.xml
    (filter for `_<latest-version>_en-US.xml`).
@@ -128,5 +139,16 @@ PRODUCT_SITEMAPS: dict[str, list[str]] = {
         "api-portal-deployment-guide_Cloud",
         "api-services-getting-started-guide-api-services-platform_Cloud",
         "api-tester-user-guide_Cloud",
+    ],
+    "esb": [
+        "esb-developer-guide_8.0",
+        "esb-service-developer-guide_8.0",
+        "esb-container-administration-guide_8.0",
+        "esb-sts-user-guide_8.0",
+        "esb-infra-services-configuration-guide_8.0",
+        "esb-system-management_8.0",
+        "esb-best-practices_8.0",
+        "studio-getting-started-guide-esb_8.0",
+        "esb-glossary_8.0",
     ],
 }

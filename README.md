@@ -306,7 +306,6 @@ quirk and "how to add another guide" — also lives in the docstring of
 
 - Components reference (Studio components / connectors)
 - Data Quality, Data Catalog, Data Stewardship, Data Preparation
-- ESB
 - MDM, Data Inventory
 - Talend 7.x
 
