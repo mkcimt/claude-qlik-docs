@@ -100,23 +100,72 @@ WebFetch matters.
 
 ## Setup
 
+Works on **macOS**, **Linux**, and **Windows** (native — no WSL required).
+All targets are driven by [`tasks.py`](tasks.py); the [`Makefile`](Makefile)
+is a thin convenience wrapper for users with `make` installed.
+
+### macOS
+
 ```bash
-# Prerequisites: macOS, Python 3.9+, uv (https://docs.astral.sh/uv/), make
 brew install uv
 git clone https://github.com/ElRakiti/claude-qlik-docs.git
 cd claude-qlik-docs
-uv sync                    # creates .venv, installs deps
-make fresh                 # crawl (~30 min) + build + cc-install
+uv sync
+make fresh                  # crawl (~30 min) + build + cc-install
 ```
 
-`make fresh` runs the crawl, builds the distilled artefacts, and installs
-the Claude Code skill in one go. If you only want one of the other modes,
-build it separately:
+### Linux
 
 ```bash
-make build           # crawl already done — just rebuild distilled artefacts
-make chat-bundle     # → dist/qlik-talend-chat.zip
-make project-bundle  # → dist/qlik-talend-project/
+curl -LsSf https://astral.sh/uv/install.sh | sh
+git clone https://github.com/ElRakiti/claude-qlik-docs.git
+cd claude-qlik-docs
+uv sync
+make fresh
+```
+
+### Windows (PowerShell, no WSL)
+
+```powershell
+# Install uv (one-time, https://docs.astral.sh/uv/getting-started/installation/)
+winget install --id=astral-sh.uv -e
+# or: irm https://astral.sh/uv/install.ps1 | iex
+
+git clone https://github.com/ElRakiti/claude-qlik-docs.git
+cd claude-qlik-docs
+uv sync
+uv run python tasks.py fresh
+```
+
+`tasks.py` provides the same target set as `make` on the other platforms:
+`crawl, cluster, topics, index, validate, build, test, cc-install,
+cc-uninstall, chat-bundle, project-bundle, fresh, clean, help`.
+
+On Windows `cc-install` creates a **directory junction** instead of a
+symlink — this works without Developer Mode or admin privileges. From
+Claude Code's perspective the result is identical to the macOS/Linux
+symlink.
+
+### What `fresh` does (any OS)
+
+1. Crawl the configured guides on `help.qlik.com/talend` (~30 min,
+   ~3,300 pages, throttled to 1 req/s).
+2. Build the distilled artefacts (cluster → topics → indexes → validate).
+3. Install the Claude Code skill into your user config (symlink on
+   macOS/Linux, junction on Windows).
+
+If you only need one of the other modes, build it separately:
+
+```bash
+# macOS / Linux:
+make build
+make chat-bundle           # → dist/qlik-talend-chat.zip
+make project-bundle        # → dist/qlik-talend-project/
+
+# Windows:
+uv run python tasks.py build
+uv run python tasks.py chat-bundle
+uv run python tasks.py project-bundle
 ```
 
 ## Mode-specific instructions
@@ -124,8 +173,13 @@ make project-bundle  # → dist/qlik-talend-project/
 ### Claude Code
 
 ```bash
+# macOS / Linux:
 make cc-install      # symlink skill-output/qlik-talend → ~/.claude/skills/qlik-talend
 make cc-uninstall    # remove the symlink
+
+# Windows:
+uv run python tasks.py cc-install      # directory junction (no admin rights needed)
+uv run python tasks.py cc-uninstall
 ```
 
 After install, open a **new** Claude Code session and just ask a Talend

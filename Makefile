@@ -1,85 +1,44 @@
-.PHONY: help crawl cluster topics index validate build clean fresh test \
+# Thin wrapper around tasks.py — convenience for macOS / Linux / WSL users.
+# Native Windows users: invoke `python tasks.py <target>` directly (or
+# `uv run python tasks.py <target>`) — same targets, identical behaviour.
+
+.PHONY: help crawl cluster topics index validate build test clean fresh \
         cc-install cc-uninstall chat-bundle project-bundle
 
-SKILL_NAME := qlik-talend
-SKILL_SRC := $(CURDIR)/skill-output/$(SKILL_NAME)
-SKILL_DST := $(HOME)/.claude/skills/$(SKILL_NAME)
-CHAT_BUNDLE_DIR := $(CURDIR)/dist/qlik-talend-chat
-CHAT_BUNDLE_ZIP := $(CURDIR)/dist/qlik-talend-chat.zip
-PROJECT_BUNDLE_DIR := $(CURDIR)/dist/qlik-talend-project
+PY := uv run python tasks.py
 
 help:
+	@$(PY) help
+	@echo
 	@echo "Build pipeline (run in order, or use 'make fresh'):"
-	@echo "  make crawl         — full crawl from help.qlik.com (~30 min)"
-	@echo "  make cluster       — cluster raw pages into topics"
-	@echo "  make topics        — build distilled topic.md files"
-	@echo "  make index         — build skill index + per-group sub-indexes"
-	@echo "  make validate      — validate citations + crawl manifest"
-	@echo "  make build         — cluster + topics + index + validate"
+	@echo "  make crawl          — full crawl from help.qlik.com (~30 min)"
+	@echo "  make cluster        — cluster raw pages into topics"
+	@echo "  make topics         — build distilled topic.md files"
+	@echo "  make index          — build skill index + per-group sub-indexes"
+	@echo "  make validate       — validate citations + crawl manifest"
+	@echo "  make build          — cluster + topics + index + validate"
 	@echo
 	@echo "Distribution targets — pick the surface you need:"
-	@echo "  make cc-install    — Claude Code: symlink skill into ~/.claude/skills/$(SKILL_NAME)"
-	@echo "  make cc-uninstall  — Claude Code: remove symlink"
-	@echo "  make chat-bundle   — Claude Chat Skill (claude.ai, /qlik-talend): dist/qlik-talend-chat.zip"
-	@echo "  make project-bundle — Claude Project Knowledge (claude.ai, implicit): dist/qlik-talend-project/"
+	@echo "  make cc-install     — Claude Code: link skill into ~/.claude/skills/"
+	@echo "  make cc-uninstall   — Claude Code: remove link"
+	@echo "  make chat-bundle    — Claude Chat Skill (slash + auto): dist/qlik-talend-chat.zip"
+	@echo "  make project-bundle — Claude Project Knowledge: dist/qlik-talend-project/"
 	@echo
 	@echo "Convenience:"
-	@echo "  make fresh         — wipe outputs, recrawl, rebuild, cc-install"
-	@echo "  make clean         — wipe build artefacts (keeps raw mirror)"
-	@echo "  make test          — run unit tests (no network, ~1s)"
+	@echo "  make fresh          — wipe outputs, recrawl, rebuild, cc-install"
+	@echo "  make clean          — wipe build artefacts (keeps raw mirror)"
+	@echo "  make test           — run unit tests (no network, ~1s)"
 
-crawl:
-	uv run python -m crawler.run --delay 0.5
-
-cluster:
-	uv run python -m distill.cluster
-
-topics:
-	uv run python -m distill.build_topics
-
-index:
-	uv run python -m package.build_index
-
-validate:
-	uv run python -m crawler.validate
-	uv run python -m distill.validate_citations
-
-build: cluster topics index validate
-
-test:
-	uv run pytest -v
-
-cc-install:
-	@mkdir -p $(HOME)/.claude/skills
-	@if [ -L "$(SKILL_DST)" ] || [ -e "$(SKILL_DST)" ]; then \
-		echo "removing existing $(SKILL_DST)"; rm -f "$(SKILL_DST)"; \
-	fi
-	@ln -s "$(SKILL_SRC)" "$(SKILL_DST)"
-	@echo "linked $(SKILL_DST) -> $(SKILL_SRC)"
-	@ls -la "$(SKILL_DST)"
-
-cc-uninstall:
-	@if [ -L "$(SKILL_DST)" ]; then rm "$(SKILL_DST)"; echo "removed symlink $(SKILL_DST)"; \
-	else echo "no symlink at $(SKILL_DST)"; fi
-
-chat-bundle:
-	uv run python -m package.build_chat_bundle
-	@echo
-	@echo "Upload to claude.ai:"
-	@echo "  Settings -> Skills -> upload $(CHAT_BUNDLE_ZIP)"
-	@echo "  Then invoke in chat with: /qlik-talend"
-
-project-bundle:
-	uv run python -m package.build_project_bundle
-
-clean:
-	rm -rf $(SKILL_SRC)/topics $(SKILL_SRC)/index $(SKILL_SRC)/index.md
-	rm -rf $(CHAT_BUNDLE_DIR) $(CHAT_BUNDLE_ZIP) $(PROJECT_BUNDLE_DIR)
-	rm -f topic_map.yaml
-
-fresh:
-	rm -rf $(SKILL_SRC)
-	rm -f topic_map.yaml
-	$(MAKE) crawl
-	$(MAKE) build
-	$(MAKE) cc-install
+crawl:          ; @$(PY) crawl
+cluster:        ; @$(PY) cluster
+topics:         ; @$(PY) topics
+index:          ; @$(PY) index
+validate:       ; @$(PY) validate
+build:          ; @$(PY) build
+test:           ; @$(PY) test
+cc-install:     ; @$(PY) cc-install
+cc-uninstall:   ; @$(PY) cc-uninstall
+chat-bundle:    ; @$(PY) chat-bundle
+project-bundle: ; @$(PY) project-bundle
+fresh:          ; @$(PY) fresh
+clean:          ; @$(PY) clean
