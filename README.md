@@ -108,7 +108,7 @@ is a thin convenience wrapper for users with `make` installed.
 
 ```bash
 brew install uv
-git clone https://github.com/ElRakiti/claude-qlik-docs.git
+git clone https://github.com/mkcimt/claude-qlik-docs.git
 cd claude-qlik-docs
 uv sync
 make fresh                  # crawl (~30 min) + build + cc-install
@@ -118,7 +118,7 @@ make fresh                  # crawl (~30 min) + build + cc-install
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
-git clone https://github.com/ElRakiti/claude-qlik-docs.git
+git clone https://github.com/mkcimt/claude-qlik-docs.git
 cd claude-qlik-docs
 uv sync
 make fresh
@@ -131,7 +131,7 @@ make fresh
 winget install --id=astral-sh.uv -e
 # or: irm https://astral.sh/uv/install.ps1 | iex
 
-git clone https://github.com/ElRakiti/claude-qlik-docs.git
+git clone https://github.com/mkcimt/claude-qlik-docs.git
 cd claude-qlik-docs
 uv sync
 uv run python tasks.py fresh

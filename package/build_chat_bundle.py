@@ -172,7 +172,7 @@ def main() -> int:
     (BUNDLE_DIR / "BUNDLE-INFO.txt").write_text(
         f"qlik-talend Chat-skill bundle\n"
         f"Built at: {datetime.now(timezone.utc).isoformat(timespec='seconds')}\n"
-        f"Source repo: https://github.com/ElRakiti/claude-qlik-docs\n"
+        f"Source repo: https://github.com/mkcimt/claude-qlik-docs\n"
         f"Guide files: {n_guide_files}\n"
         f"\n"
         f"In claude.ai: Settings -> Skills -> Upload, pick the .zip alongside\n"
