@@ -111,7 +111,7 @@ GROUP_VERSIONS: dict[str, str] = {
     "esb": "8.0",
 }
 
-USER_AGENT = "qlik-docs-skill-builder/0.1 (personal use; +contact: mirco.kriesten@cimt-ag.de)"
+USER_AGENT = "qlik-docs-skill-builder/0.1 (+https://github.com/mkcimt/claude-qlik-docs)"
 LOCALE = "en-US"
 TALEND_SITEMAP_INDEX = "https://help.qlik.com/talend/sitemap.xml"
 SITEMAP_URL_TEMPLATE = "https://help.qlik.com/talend/sitemap_{name}_{locale}.xml"
