@@ -23,6 +23,7 @@ INDEX_DIR = SKILL_OUT / "index"
 GROUP_DESCRIPTIONS: dict[str, str] = {
     "api": "Talend Cloud APIs — TMC management API, API Designer, API Portal, API Tester.",
     "cloud-platform": "Talend Cloud platform basics — getting started, glossary, account, regions.",
+    "data-apps": "Talend Data Stewardship (campaigns, tasks, data models, TDQL, REST API) + Data Preparation (recipes, datasets, functions).",
     "esb": "Talend ESB (8.0) — Camel routes, CXF services, Karaf container, STS, infrastructure services.",
     "installation": "Studio + TMC + Engine installation, hybrid deployments, migration / upgrade (Cloud + 8.0).",
     "remote-engine": "Talend Remote Engine (Cloud, Linux & Windows) + Dynamic Engine — install, configure, run.",

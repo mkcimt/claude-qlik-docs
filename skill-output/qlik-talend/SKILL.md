@@ -1,6 +1,6 @@
 ---
 name: qlik-talend
-description: Authoritative reference for Qlik Talend (Studio 8.0, Talend Management Console, Remote Engine, SDLC/CI-CD, installation/migration, ESB). Use when answering questions about Talend Studio jobs/components, TMC promotions/schedules/users, Remote Engine setup/configuration, Dynamic Engine, hybrid installations, Studio→TMC publishing, Git/CI-CD with Talend, ESB routes/services/container, or anything mentioning Talend on Qlik Cloud. Sourced from help.qlik.com/talend.
+description: Authoritative reference for Qlik Talend (Studio 8.0, Talend Management Console, Remote Engine, SDLC/CI-CD, installation/migration, ESB, Talend APIs, Data Stewardship, Data Preparation). Use when answering questions about Talend Studio jobs/components, TMC promotions/schedules/users, Remote Engine setup/configuration, Dynamic Engine, hybrid installations, Studio→TMC publishing, Git/CI-CD with Talend, ESB routes/services/container, Talend Data Stewardship campaigns/tasks/data-models and its REST API, Talend Data Preparation recipes/datasets/preparations, API Designer/Tester, or anything mentioning Talend on Qlik Cloud. Sourced from help.qlik.com/talend.
 ---
 
 # Qlik Talend Documentation Skill
@@ -16,6 +16,8 @@ Trigger on questions that mention Talend products or workflows, including but no
 - **Installation / migration / upgrade**: Studio installer, TAC upgrade paths, hybrid deployments, JDK requirements, Tomcat upgrades.
 - **SDLC / CI-CD with Talend**: development life-cycle, environment promotions, Git workflows, automation patterns.
 - **Talend Cloud platform**: getting started, glossary, regions, account migration, Qlik-Talend integration.
+- **Talend Data Stewardship**: campaigns, tasks, data models, workflows (arbitration / resolution / merging / grouping), label & validation rules, assignment, the stewardship console, the TDQL query language, and the **Data Stewardship REST API**.
+- **Talend Data Preparation**: preparations, recipes, datasets, functions, data cleansing/masking, exporting prepared data, and using Data Prep within pipelines.
 
 If a question is *vaguely* Talend-related but really about a non-Talend product (Qlik Sense, QlikView, Replicate, Compose, NPrinting), do **not** rely on this skill — it does not contain those docs.
 
@@ -25,14 +27,15 @@ If a question is *vaguely* Talend-related but really about a non-Talend product 
 |-------|---------|------:|-------:|
 | api | Cloud | ~314 | ~56 |
 | cloud-platform | Cloud | ~127 | ~20 |
-| esb | 8.0 | ~903 | ~158 |
+| data-apps | Cloud + 8.0 | ~392 | ~65 |
+| esb | 8.0 | ~904 | ~158 |
 | installation | Cloud + 8.0 | ~1,032 | ~150 |
 | remote-engine | Cloud | ~324 | ~69 |
 | sdlc-cicd | Cloud + 8.0 | ~68 | ~16 |
 | studio | 8.0 (latest R-code at crawl) | ~1,068 | ~128 |
 | tmc | Cloud | ~328 | ~58 |
 
-**Out of scope (do not assume coverage):** Components/connectors reference, Data Catalog, Data Quality, Data Stewardship, Data Preparation, API Designer, MDM, Data Inventory, all 7.x docs.
+**Out of scope (do not assume coverage):** Components/connectors reference, Data Catalog, Data Quality, MDM, Data Inventory, all 7.x docs.
 
 ## How to look something up — progressive disclosure
 
