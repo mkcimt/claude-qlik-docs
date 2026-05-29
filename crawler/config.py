@@ -49,6 +49,14 @@ cloud-platform:
 - https://help.qlik.com/talend/en-US/talend-cloud-getting-started/Cloud/
 - https://help.qlik.com/talend/en-US/talend-glossary/Cloud/
 
+data-apps:
+- https://help.qlik.com/talend/en-US/data-stewardship-user-guide/Cloud/
+- https://help.qlik.com/talend/en-US/data-stewardship-getting-started-guide/Cloud/
+- https://help.qlik.com/talend/en-US/data-stewardship-examples/Cloud/
+- https://help.qlik.com/talend/en-US/data-stewardship-components-query-language/8.0/
+- https://help.qlik.com/talend/en-US/data-preparation-user-guide/Cloud/
+- https://help.qlik.com/talend/en-US/data-preparation-getting-started/Cloud/
+
 api:
 - https://help.qlik.com/talend/en-US/api-user-guide/Cloud/
 - https://help.qlik.com/talend/en-US/api-designer-getting-started-guide/Cloud/
@@ -74,9 +82,15 @@ To extend coverage with another guide:
 2. Add `<sitemap-name>_<version>` to the appropriate group below (or create
    a new group key).
 3. Add a display label to GROUP_LABELS and a version string to GROUP_VERSIONS
-   below (used by `package/update_meta.py` to regenerate README + SKILL.md).
-4. Update the SKILL.md `description` frontmatter (the auto-trigger keywords
-   for claude.ai) — this is the only thing NOT auto-generated.
+   below (used by `package/update_meta.py` to regenerate README + SKILL.md),
+   and a one-line blurb to GROUP_DESCRIPTIONS in `package/build_index.py`
+   (used for the Description column of `index.md` — easy to forget, leaves an
+   empty cell if missed).
+4. Hand-update the bits that are NOT auto-generated:
+   - SKILL.md `description` frontmatter (the auto-trigger keywords for claude.ai),
+   - SKILL.md "When to use this skill" bullets and the "Out of scope" line,
+   - README.md "### Out of scope (current)" list.
+   (The SKILL.md coverage table and the README guide list ARE auto-generated.)
 5. Run `make fresh` (or just `make crawl && make build`).
 """
 from __future__ import annotations
@@ -95,6 +109,7 @@ GROUP_LABELS: dict[str, str] = {
     "installation": "Cloud + 8.0",
     "sdlc-cicd": "SDLC / CI-CD",
     "cloud-platform": "Talend Cloud platform basics",
+    "data-apps": "Talend Data Stewardship + Data Preparation, Cloud",
     "api": "Talend Cloud APIs + API Designer / Portal / Services / Tester",
     "esb": "Talend ESB 8.0 — Camel routes, CXF services, Karaf container",
 }
@@ -107,6 +122,7 @@ GROUP_VERSIONS: dict[str, str] = {
     "installation": "Cloud + 8.0",
     "sdlc-cicd": "Cloud + 8.0",
     "cloud-platform": "Cloud",
+    "data-apps": "Cloud + 8.0",
     "api": "Cloud",
     "esb": "8.0",
 }
@@ -164,6 +180,14 @@ PRODUCT_SITEMAPS: dict[str, list[str]] = {
     "cloud-platform": [
         "talend-cloud-getting-started_Cloud",
         "talend-glossary_Cloud",
+    ],
+    "data-apps": [
+        "data-stewardship-user-guide_Cloud",
+        "data-stewardship-getting-started-guide_Cloud",
+        "data-stewardship-examples_Cloud",
+        "data-stewardship-components-query-language_8.0",
+        "data-preparation-user-guide_Cloud",
+        "data-preparation-getting-started_Cloud",
     ],
     "api": [
         "api-user-guide_Cloud",
