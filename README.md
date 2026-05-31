@@ -248,7 +248,7 @@ repo ships only **code and skill scaffolding** (e.g. `SKILL.md`,
 Each line below is one **canonical Qlik Talend doc entry page**; all
 sub-pages of that guide are crawled via Qlik's official sitemap (so
 coverage is essentially complete — no recursive link-walking needed).
-The current build covers **4,557 pages → 720 topics** across these guides:
+The current build covers **4,744 pages → 730 topics** across these guides:
 
 **studio** (Talend Studio 8.0 — latest R-code at crawl):
 - https://help.qlik.com/talend/en-US/studio-user-guide/8.0-R2026-04/
@@ -297,6 +297,7 @@ The current build covers **4,557 pages → 720 topics** across these guides:
 - https://help.qlik.com/talend/en-US/data-stewardship-components-query-language/8.0/
 - https://help.qlik.com/talend/en-US/data-preparation-user-guide/Cloud/
 - https://help.qlik.com/talend/en-US/data-preparation-getting-started/Cloud/
+- https://help.qlik.com/talend/en-US/data-shaping-language-reference-guide/8.0/
 
 **api** (Talend Cloud APIs + API Designer / Portal / Services / Tester):
 - https://help.qlik.com/talend/en-US/api-user-guide/Cloud/

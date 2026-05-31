@@ -56,6 +56,7 @@ data-apps:
 - https://help.qlik.com/talend/en-US/data-stewardship-components-query-language/8.0/
 - https://help.qlik.com/talend/en-US/data-preparation-user-guide/Cloud/
 - https://help.qlik.com/talend/en-US/data-preparation-getting-started/Cloud/
+- https://help.qlik.com/talend/en-US/data-shaping-language-reference-guide/8.0/
 
 api:
 - https://help.qlik.com/talend/en-US/api-user-guide/Cloud/
@@ -188,6 +189,7 @@ PRODUCT_SITEMAPS: dict[str, list[str]] = {
         "data-stewardship-components-query-language_8.0",
         "data-preparation-user-guide_Cloud",
         "data-preparation-getting-started_Cloud",
+        "data-shaping-language-reference-guide_8.0",
     ],
     "api": [
         "api-user-guide_Cloud",
