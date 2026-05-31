@@ -16,7 +16,7 @@ Trigger on questions that mention Talend products or workflows, including but no
 - **Installation / migration / upgrade**: Studio installer, TAC upgrade paths, hybrid deployments, JDK requirements, Tomcat upgrades.
 - **SDLC / CI-CD with Talend**: development life-cycle, environment promotions, Git workflows, automation patterns.
 - **Talend Cloud platform**: getting started, glossary, regions, account migration, Qlik-Talend integration.
-- **Talend Data Stewardship**: campaigns, tasks, data models, workflows (arbitration / resolution / merging / grouping), label & validation rules, assignment, the stewardship console, the TDQL query language, and the **Data Stewardship REST API**.
+- **Talend Data Stewardship**: campaigns, tasks, data models, workflows (arbitration / resolution / merging / grouping), label & validation rules, assignment, the stewardship console, the TDQL query language, **data quality rules** (basic & advanced mode, the **Data Shaping Expression Language**), and the **Data Stewardship REST API**.
 - **Talend Data Preparation**: preparations, recipes, datasets, functions, data cleansing/masking, exporting prepared data, and using Data Prep within pipelines.
 
 If a question is *vaguely* Talend-related but really about a non-Talend product (Qlik Sense, QlikView, Replicate, Compose, NPrinting), do **not** rely on this skill — it does not contain those docs.
@@ -27,7 +27,7 @@ If a question is *vaguely* Talend-related but really about a non-Talend product 
 |-------|---------|------:|-------:|
 | api | Cloud | ~314 | ~56 |
 | cloud-platform | Cloud | ~127 | ~20 |
-| data-apps | Cloud + 8.0 | ~392 | ~65 |
+| data-apps | Cloud + 8.0 | ~579 | ~75 |
 | esb | 8.0 | ~904 | ~158 |
 | installation | Cloud + 8.0 | ~1,032 | ~150 |
 | remote-engine | Cloud | ~324 | ~69 |
