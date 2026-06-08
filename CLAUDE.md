@@ -26,6 +26,34 @@ and `topic_map.yaml`. They are regenerated locally per user via `make crawl && m
 **Tracked** (so editing these is what actually ships): all code, plus
 `skill-output/qlik-talend/SKILL.md` and `README.md`.
 
+## After a pull or update — ALWAYS check for drift first
+
+Crawled/derived content is gitignored (see above), so a `git pull` — or the
+kit's `setup/update.py` pulling this repo — advances **code and config only**.
+The local crawl, build, and installed Claude Code skill do **not** come with it.
+This silently desyncs three things, and a new Claude session will serve stale or
+partial content without any error:
+
+1. `crawler/config.py` may have gained a group or guides that were never crawled
+   / built on this machine → the skill is missing content its `SKILL.md` claims.
+2. The built `SKILL.md` / `index` may predate the config change.
+3. `~/.claude/skills/qlik-talend` may still point at a **different / older
+   checkout** (e.g. after a repo move or a second clone), so the live skill
+   isn't even this one.
+
+**Therefore, immediately after any pull/update of this repo — and before
+rebuilding or trusting the skill — run the drift check:**
+
+```
+uv run python tasks.py doctor      # or: make doctor
+```
+
+It verifies: every group in `PRODUCT_SITEMAPS` is present in the local build,
+studio is a single R-code, and `~/.claude/skills/qlik-talend` resolves to *this*
+checkout. Resolve every `WARN` (each prints its exact fix) before proceeding —
+the usual remedy is `tasks.py crawl --product <group>` → `tasks.py build` →
+`tasks.py cc-install`.
+
 ## Adding or changing a guide — the complete checklist
 
 The canonical step list lives in the docstring of [`crawler/config.py`](crawler/config.py).
