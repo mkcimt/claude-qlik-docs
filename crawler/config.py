@@ -67,6 +67,7 @@ api:
 - https://help.qlik.com/talend/en-US/api-tester-user-guide/Cloud/
 
 esb:
+- https://help.qlik.com/talend/en-US/talend-esb/8.0/
 - https://help.qlik.com/talend/en-US/esb-developer-guide/8.0/
 - https://help.qlik.com/talend/en-US/esb-service-developer-guide/8.0/
 - https://help.qlik.com/talend/en-US/esb-container-administration-guide/8.0/
@@ -75,7 +76,18 @@ esb:
 - https://help.qlik.com/talend/en-US/esb-system-management/8.0/
 - https://help.qlik.com/talend/en-US/esb-best-practices/8.0/
 - https://help.qlik.com/talend/en-US/studio-getting-started-guide-esb/8.0/
+- https://help.qlik.com/talend/en-US/studio-getting-started-guide-data-services-platform/8.0/
 - https://help.qlik.com/talend/en-US/esb-glossary/8.0/
+- https://help.qlik.com/talend/en-US/activity-monitoring-console-user-guide/8.0/
+- https://help.qlik.com/talend/en-US/microservice-introduction/8.0/
+- https://help.qlik.com/talend/en-US/microservice-best-practice/8.0/
+- https://help.qlik.com/talend/en-US/esb-runtime-auto-scaling-on-aws/8.0/
+- https://help.qlik.com/talend/en-US/configure-multiple-container/8.0/
+- https://help.qlik.com/talend/en-US/use-syncope-with-esb/8.0/
+- https://help.qlik.com/talend/en-US/core-framework-updates-of-esb-801-r2023-08/8.0/
+- https://help.qlik.com/talend/en-US/data-service-route-example/8.0/
+- https://help.qlik.com/talend/en-US/esb-read-hl7-message/8.0/
+- https://help.qlik.com/talend/en-US/web-service-proxy/8.0/
 
 To extend coverage with another guide:
 1. Look up the sub-sitemap name in https://help.qlik.com/talend/sitemap.xml
@@ -112,7 +124,7 @@ GROUP_LABELS: dict[str, str] = {
     "cloud-platform": "Talend Cloud platform basics",
     "data-apps": "Talend Data Stewardship + Data Preparation, Cloud",
     "api": "Talend Cloud APIs + API Designer / Portal / Services / Tester",
-    "esb": "Talend ESB 8.0 — Camel routes, CXF services, Karaf container",
+    "esb": "Talend ESB 8.0 — Camel routes, CXF services, Karaf container, microservices, Activity Monitoring Console",
 }
 
 # Version string shown in the SKILL.md coverage table.
@@ -200,6 +212,7 @@ PRODUCT_SITEMAPS: dict[str, list[str]] = {
         "api-tester-user-guide_Cloud",
     ],
     "esb": [
+        "talend-esb_8.0",
         "esb-developer-guide_8.0",
         "esb-service-developer-guide_8.0",
         "esb-container-administration-guide_8.0",
@@ -208,6 +221,17 @@ PRODUCT_SITEMAPS: dict[str, list[str]] = {
         "esb-system-management_8.0",
         "esb-best-practices_8.0",
         "studio-getting-started-guide-esb_8.0",
+        "studio-getting-started-guide-data-services-platform_8.0",
         "esb-glossary_8.0",
+        "activity-monitoring-console-user-guide_8.0",
+        "microservice-introduction_8.0",
+        "microservice-best-practice_8.0",
+        "esb-runtime-auto-scaling-on-aws_8.0",
+        "configure-multiple-container_8.0",
+        "use-syncope-with-esb_8.0",
+        "core-framework-updates-of-esb-801-r2023-08_8.0",
+        "data-service-route-example_8.0",
+        "esb-read-hl7-message_8.0",
+        "web-service-proxy_8.0",
     ],
 }
