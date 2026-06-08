@@ -13,6 +13,7 @@ Run: uv run python -m package.build_chat_bundle
 """
 from __future__ import annotations
 
+import re
 import sys
 import zipfile
 from datetime import datetime, timezone
@@ -31,9 +32,9 @@ BUNDLE_DIR = DIST / "qlik-talend-chat"
 BUNDLE_ZIP = DIST / "qlik-talend-chat.zip"
 
 
-CHAT_SKILL_MD = """---
+CHAT_SKILL_TEMPLATE = """---
 name: qlik-talend
-description: Authoritative reference for Qlik Talend documentation (Studio 8.0, Talend Management Console Cloud, Remote Engine Linux/Windows + Gen2, Dynamic Engine, hybrid installations, SDLC/CI-CD, Talend Cloud platform). Use when answering questions about Talend Studio jobs/joblets/routes/components/context-variables/metadata/projects/Git, TMC promotions/schedules/tasks/users/tokens/environments/audit, Remote Engine setup/configuration/troubleshooting, Studio→TMC publishing, Git or CI/CD workflows in Talend, hybrid installation/migration/upgrade, or anything mentioning Talend on Qlik Cloud. Sourced from help.qlik.com/talend. Bundle contains 28 consolidated guide files with TOC + topic anchors + citation URLs.
+description: {description}
 ---
 
 # Qlik Talend Documentation Skill (Chat edition)
@@ -83,26 +84,15 @@ the source URL.
 
 ## What's in this bundle
 
-- **Coverage:** Talend Studio 8.0 (Studio User Guide + companion docs),
-  Talend Management Console (Cloud), Remote Engine Linux + Windows (Cloud) +
-  Gen2, Dynamic Engine, installation/migration/upgrade guides (Cloud + 8.0),
-  SDLC/CI-CD best practices, Talend Cloud getting-started + glossary.
-- **Out of scope:** Components/connectors reference, Data Catalog, Data
-  Quality, Data Stewardship, Data Preparation, ESB, API Designer, MDM, Data
-  Inventory, all 7.x docs.
+- **Coverage:** see the *Coverage at a glance* table below — every crawled
+  product group is bundled.
+- {out_of_scope}
 - **No raw files:** Chat has no filesystem; bundle stores distilled topics
   consolidated per guide+version with citation URLs to the live Qlik docs.
 
 ## Coverage at a glance
 
-| Group | Versions | Pages |
-|-------|---------|------:|
-| studio | 8.0 (latest R-code at crawl) | ~1,068 |
-| tmc | Cloud | ~328 |
-| remote-engine | Cloud | ~324 |
-| installation | Cloud + 8.0 | ~1,032 |
-| sdlc-cicd | Cloud + 8.0 | ~68 |
-| cloud-platform | Cloud | ~127 |
+{coverage_table}
 
 ## File layout
 
@@ -155,6 +145,26 @@ Example: "In TMC (Cloud), promotion environments are configured under …
 """
 
 
+def _source_skill_meta(n_guide_files: int) -> dict[str, str]:
+    """Derive the description, coverage table and out-of-scope line from the
+    built source SKILL.md, so the chat bundle never drifts from real coverage.
+    (The source SKILL.md is itself auto-maintained by package.update_meta.)"""
+    src = (ROOT / "skill-output" / "qlik-talend" / "SKILL.md").read_text(encoding="utf-8")
+    m_desc = re.search(r"^description:\s*(.+?)\s*$", src, re.M)
+    base = m_desc.group(1).strip() if m_desc else ""
+    m_cov = re.search(r"## Coverage scope\s*\n\n(\|[^\n]*\n(?:\|[^\n]*\n)+)", src)
+    m_oos = re.search(r"^\*\*Out of scope.*$", src, re.M)
+    return {
+        "description": (
+            f"{base} Chat bundle of {n_guide_files} consolidated guide files "
+            "(TL;DRs, procedure outlines, notes, citation URLs); WebFetch the "
+            "cited help.qlik.com URLs for verbatim text."
+        ),
+        "coverage_table": m_cov.group(1).rstrip() if m_cov else "",
+        "out_of_scope": m_oos.group(0).strip() if m_oos else "**Out of scope:** see source docs.",
+    }
+
+
 def main() -> int:
     src_topics = ROOT / "skill-output" / "qlik-talend" / "topics"
     if not src_topics.exists():
@@ -165,9 +175,11 @@ def main() -> int:
         return 1
 
     reset_dir(BUNDLE_DIR)
-    (BUNDLE_DIR / "SKILL.md").write_text(CHAT_SKILL_MD, encoding="utf-8")
-
     by_group, _, n_guide_files = write_consolidated_artefacts(target_dir=BUNDLE_DIR)
+    (BUNDLE_DIR / "SKILL.md").write_text(
+        CHAT_SKILL_TEMPLATE.format(**_source_skill_meta(n_guide_files)),
+        encoding="utf-8",
+    )
 
     (BUNDLE_DIR / "BUNDLE-INFO.txt").write_text(
         f"qlik-talend Chat-skill bundle\n"

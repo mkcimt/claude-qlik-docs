@@ -34,14 +34,18 @@ MANIFEST_PATH = META_DIR / "manifest.json"
 
 def load_manifest() -> dict:
     if MANIFEST_PATH.exists():
-        return json.loads(MANIFEST_PATH.read_text())
+        return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     return {"pages": {}, "stats": {}}
 
 
 def save_manifest(manifest: dict) -> None:
     META_DIR.mkdir(parents=True, exist_ok=True)
+    # Always UTF-8: on Windows write_text/read_text default to cp1252, which
+    # corrupts non-ASCII page titles (e.g. a "™" becomes byte 0x99) and makes
+    # the manifest invalid UTF-8 for the downstream distill steps.
     MANIFEST_PATH.write_text(
-        json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True)
+        json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True),
+        encoding="utf-8",
     )
 
 
